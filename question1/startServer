@@ -1,0 +1,2 @@
+cc -o server find-day_server.c find-day_svc.c find-day_xdr.c
+./server

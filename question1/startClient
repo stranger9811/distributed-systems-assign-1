@@ -1,0 +1,2 @@
+cc -o client find-day_client.c find-day_clnt.c find-day_xdr.c
+./client localhost 5 10

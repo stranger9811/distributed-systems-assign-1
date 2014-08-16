@@ -11,7 +11,17 @@ int * days_to_be_added_1_svc(date *argp,struct svc_req *rqstp)
 
 	static int  result;
 
-	result = 23;
+	int year = argp->year;
+	int month = argp->month;
+	int day_of_month = argp->day;
+	if(month > 2) {
+		result = (year / 4) - (year / 100) + (year / 400);
+	}
+	else
+	{
+		year--;
+		result = (year / 4) - (year / 100) + (year / 400);
+	}
 	/*
 	 * insert server code here
 	 */
@@ -23,6 +33,24 @@ int * days_elapsed_1_svc(date *argp,struct svc_req *rqstp)
 {
 
 	static int  result;
+	int year = argp->year;
+	int month = argp->month;
+	int day_of_month = argp->day;
+
+	int total_days = (year - 1)*365 + day_of_month;
+	int i=0;
+	for(i=1; i<day_of_month; i++) {
+		if(i == 1 || i==3 || i==5 || i==7 || i==8 || i==10 ) {
+			total_days = total_days + 31;
+		}
+		else if(i==2) {
+			total_days = total_days + 28;
+		}
+		else {
+			total_days += 30;
+		}
+	}
+	result = total_days;
 
 	/*
 	 * insert server code here

@@ -5,29 +5,48 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include "find-day.h"
 
 
 int day_to_be_added( CLIENT *clnt, int day_of_month, int month,int year) {
-  date this_date;
-  int *result;
+	date this_date;
+	int *result;
 
-  this_date.day = day_of_month;
-  this_date.month = month;
-  this_date.year = year;
+	this_date.day = day_of_month;
+	this_date.month = month;
+	this_date.year = year;
 
-  result = days_to_be_added_1(&this_date,clnt);
-  if (result==NULL) {
-    fprintf(stderr,"Trouble calling remote procedure\n");
-	exit(0); 
+	result = days_to_be_added_1(&this_date,clnt);
+	if (result==NULL) {
+		fprintf(stderr,"Trouble calling remote procedure\n");
+
 	}
-  return(*result); 
+	return(*result); 
+}
+
+
+int day_elapsed(CLIENT *clnt, int day_of_month, int month,int year) {
+	date this_date;
+	int *result;
+
+	this_date.day = day_of_month;
+	this_date.month = month;
+	this_date.year = year;
+
+	result = days_elapsed_1(&this_date,clnt);
+	if (result==NULL) {
+		fprintf(stderr,"Trouble calling remote procedure\n");
+
+	}
+	return(*result); 
 }
 
 
 int main(int argc,char *argv[]) {
 	CLIENT *clnt;
 	int day_of_month=9,month = 8,year = 2014;
+
 	if(argc != 4) {
 		printf("usage: %s server_host\n", argv[0]);
 		exit(1);
@@ -35,9 +54,14 @@ int main(int argc,char *argv[]) {
 	clnt = clnt_create(argv[1],SIMP_PROG,SIMP_VERSION,"udp");
 
 	if (clnt == (CLIENT *) NULL) { // create unsuccessful
-    	clnt_pcreateerror(argv[1]);
-    	exit(1);
+		clnt_pcreateerror(argv[1]);
+		exit(1);
 	}
-	printf("%d", day_to_be_added(clnt,day_of_month,month,year));
+	printf("\nEnter date\n");
+	scanf("%d/%d/%d",&day_of_month,&month,&year);
+
+	printf("\nday is %d month %d year %d\n",day_of_month,month,year);
+	printf(" days elapsed = %d \n",day_elapsed(clnt,day_of_month,month,year));
+	printf(" leap years = %d \n",day_to_be_added(clnt,day_of_month,month,year));
 	return 0;
 }
