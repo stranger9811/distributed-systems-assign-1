@@ -1,8 +1,13 @@
 #define VERSION_NUMBER 1 // Defines the version number of specification
 struct date { 
-	int day; 
-	int month; 
-	int year;
+	unsigned int day; 
+	unsigned int month; 
+	unsigned int year_upper;
+	unsigned int year_lower;
+};
+struct result {
+	unsigned int upper;
+	unsigned int lower;
 };
 program SIMP_PROG {
 	version SIMP_VERSION {

@@ -9,13 +9,13 @@
 #include "find-day.h"
 
 
-int day_to_be_added( CLIENT *clnt, int day_of_month, int month,int year) {
+int day_to_be_added( CLIENT *clnt, int day_of_month, int month,long long year) {
 	date this_date;
 	int *result;
 
 	this_date.day = day_of_month;
 	this_date.month = month;
-	this_date.year = year;
+	this_date.year_lower = year;
 
 	result = days_to_be_added_1(&this_date,clnt);
 	if (result==NULL) {
@@ -25,14 +25,29 @@ int day_to_be_added( CLIENT *clnt, int day_of_month, int month,int year) {
 	return(*result);
 }
 
+int find_week_day( CLIENT *clnt, long long total_no_days) {
+	date this_date;
+	int *result;
 
-int day_elapsed(CLIENT *clnt, int day_of_month, int month,int year) {
+	this_date.day = total_no_days;
+	printf("day is %d\n",this_date.day);
+	result = find_day_1(&this_date,clnt);
+	if (result==NULL) {
+		fprintf(stderr,"Trouble calling remote procedure\n");
+
+	}
+	return(*result);
+}
+
+int day_elapsed(CLIENT *clnt, int day_of_month, int month,long long year) {
 	date this_date;
 	int *result;
 
 	this_date.day = day_of_month;
 	this_date.month = month;
-	this_date.year = year;
+	this_date.year_upper = year >> 32;
+	this_date.year_lower = year & 0x00000000FFFFFFFF;
+	
 
 	result = days_elapsed_1(&this_date,clnt);
 	if (result==NULL) {
@@ -42,10 +57,43 @@ int day_elapsed(CLIENT *clnt, int day_of_month, int month,int year) {
 	return(*result); 
 }
 
+int findDay(CLIENT *clnt) {
+	int day_of_month=9,month = 8;
+	long long year = 2014;
+
+	printf("\nEnter date\n");
+	scanf("%d/%d/%lld",&day_of_month,&month,&year);
+
+
+
+	printf("\nday is %d month %d year %d\n",day_of_month,month,year);
+	long long no_of_days = day_elapsed(clnt,day_of_month,month,year);
+	long long leap_years = day_to_be_added(clnt,day_of_month,month,year);
+	printf(" days elapsed = %d \n",day_elapsed(clnt,day_of_month,month,year));
+	printf(" leap years = %d \n",day_to_be_added(clnt,day_of_month,month,year));
+
+	int day = find_week_day(clnt,no_of_days+leap_years);
+	
+
+	if(day == 0)
+		printf("Monday\n");
+	else if(day == 1)
+		printf("Tuesday\n");
+	else if(day == 2)
+		printf("Wednesday\n");
+	else if(day == 3)
+		printf("Thursday\n");
+	else if(day == 4)
+		printf("Friday\n");
+	else if(day == 5)
+		printf("Saturday\n");
+	else
+		printf("Sunday\n");
+}
 
 int main(int argc,char *argv[]) {
 	CLIENT *clnt;
-	int day_of_month=9,month = 8,year = 2014;
+	
 
 	if(argc != 4) {
 		printf("usage: %s server_host\n", argv[0]);
@@ -57,11 +105,6 @@ int main(int argc,char *argv[]) {
 		clnt_pcreateerror(argv[1]);
 		exit(1);
 	}
-	printf("\nEnter date\n");
-	scanf("%d/%d/%d",&day_of_month,&month,&year);
-
-	printf("\nday is %d month %d year %d\n",day_of_month,month,year);
-	printf(" days elapsed = %d \n",day_elapsed(clnt,day_of_month,month,year));
-	printf(" leap years = %d \n",day_to_be_added(clnt,day_of_month,month,year));
+	findDay(clnt);
 	return 0;
 }

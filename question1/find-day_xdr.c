@@ -10,12 +10,64 @@ xdr_date(xdrs, objp)
 	XDR *xdrs;
 	date *objp;
 {
+	int32_t *buf;
 
-	if (!xdr_int(xdrs, &objp->day))
+	if (xdrs->x_op == XDR_ENCODE) {
+		buf = (int32_t *)XDR_INLINE(xdrs, 4 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			if (!xdr_u_int(xdrs, &objp->day))
+				return (FALSE);
+			if (!xdr_u_int(xdrs, &objp->month))
+				return (FALSE);
+			if (!xdr_u_int(xdrs, &objp->year_upper))
+				return (FALSE);
+			if (!xdr_u_int(xdrs, &objp->year_lower))
+				return (FALSE);
+		} else {
+			IXDR_PUT_U_LONG(buf, objp->day);
+			IXDR_PUT_U_LONG(buf, objp->month);
+			IXDR_PUT_U_LONG(buf, objp->year_upper);
+			IXDR_PUT_U_LONG(buf, objp->year_lower);
+		}
+	} else if (xdrs->x_op == XDR_DECODE) {
+		buf = (int32_t *)XDR_INLINE(xdrs, 4 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			if (!xdr_u_int(xdrs, &objp->day))
+				return (FALSE);
+			if (!xdr_u_int(xdrs, &objp->month))
+				return (FALSE);
+			if (!xdr_u_int(xdrs, &objp->year_upper))
+				return (FALSE);
+			if (!xdr_u_int(xdrs, &objp->year_lower))
+				return (FALSE);
+		} else {
+			objp->day = IXDR_GET_U_LONG(buf);
+			objp->month = IXDR_GET_U_LONG(buf);
+			objp->year_upper = IXDR_GET_U_LONG(buf);
+			objp->year_lower = IXDR_GET_U_LONG(buf);
+		}
+	} else {
+		if (!xdr_u_int(xdrs, &objp->day))
+			return (FALSE);
+		if (!xdr_u_int(xdrs, &objp->month))
+			return (FALSE);
+		if (!xdr_u_int(xdrs, &objp->year_upper))
+			return (FALSE);
+		if (!xdr_u_int(xdrs, &objp->year_lower))
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+bool_t
+xdr_result(xdrs, objp)
+	XDR *xdrs;
+	result *objp;
+{
+
+	if (!xdr_u_int(xdrs, &objp->upper))
 		return (FALSE);
-	if (!xdr_int(xdrs, &objp->month))
-		return (FALSE);
-	if (!xdr_int(xdrs, &objp->year))
+	if (!xdr_u_int(xdrs, &objp->lower))
 		return (FALSE);
 	return (TRUE);
 }

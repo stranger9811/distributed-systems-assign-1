@@ -12,9 +12,10 @@
 
 
 struct date {
-	int day;
-	int month;
-	int year;
+	u_int day;
+	u_int month;
+	u_int year_upper;
+	u_int year_lower;
 };
 typedef struct date date;
 #ifdef __cplusplus
@@ -23,6 +24,20 @@ extern "C" bool_t xdr_date(XDR *, date*);
 extern  bool_t xdr_date(XDR *, date*);
 #else /* Old Style C */
 bool_t xdr_date();
+#endif /* Old Style C */
+
+
+struct result {
+	u_int upper;
+	u_int lower;
+};
+typedef struct result result;
+#ifdef __cplusplus
+extern "C" bool_t xdr_result(XDR *, result*);
+#elif __STDC__
+extern  bool_t xdr_result(XDR *, result*);
+#else /* Old Style C */
+bool_t xdr_result();
 #endif /* Old Style C */
 
 
