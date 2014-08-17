@@ -1,0 +1,4 @@
+javac HelloInterface.java Hello.java
+javac HelloServer.java HelloClient.java
+rmic Hello
+rmiregistry &
