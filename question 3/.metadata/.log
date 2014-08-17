@@ -1,0 +1,44 @@
+!SESSION 2014-08-17 22:19:55.681 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -keyring /Users/Ashok/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.standard.product -keyring /Users/Ashok/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:20:15.080
+!MESSAGE System property http.proxyHost has been set to nknproxy.iitk.ac.in by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:20:15.085
+!MESSAGE System property http.proxyPort has been set to 3128 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:20:15.085
+!MESSAGE System property http.nonProxyHosts has been set to iitk.ac.in|*.iitk.ac.in by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:20:15.086
+!MESSAGE System property https.proxyHost has been set to nknproxy.iitk.ac.in by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:20:15.086
+!MESSAGE System property https.proxyPort has been set to 3128 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-08-17 22:21:03.636 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -keyring /Users/Ashok/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.standard.product -keyring /Users/Ashok/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:21:12.143
+!MESSAGE System property http.proxyHost has been set to nknproxy.iitk.ac.in by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:21:12.147
+!MESSAGE System property http.proxyPort has been set to 3128 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:21:12.148
+!MESSAGE System property http.nonProxyHosts has been set to iitk.ac.in|*.iitk.ac.in by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:21:12.149
+!MESSAGE System property https.proxyHost has been set to nknproxy.iitk.ac.in by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-17 22:21:12.149
+!MESSAGE System property https.proxyPort has been set to 3128 by an external source. This value will be overwritten using the values from the preferences

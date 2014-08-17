@@ -22,7 +22,7 @@ int day_to_be_added( CLIENT *clnt, int day_of_month, int month,int year) {
 		fprintf(stderr,"Trouble calling remote procedure\n");
 
 	}
-	return(*result); 
+	return(*result);
 }
 
 
