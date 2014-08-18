@@ -60,22 +60,24 @@ xdr_date(xdrs, objp)
 }
 
 bool_t
-xdr_result(xdrs, objp)
+xdr_find_diff(xdrs, objp)
 	XDR *xdrs;
-	result *objp;
+	find_diff *objp;
 {
 
 	if (!xdr_u_int(xdrs, &objp->upper))
 		return (FALSE);
 	if (!xdr_u_int(xdrs, &objp->lower))
 		return (FALSE);
+	if (!xdr_u_int(xdrs, &objp->specific_day))
+		return (FALSE);
 	return (TRUE);
 }
 
 bool_t
-xdr_find_diff(xdrs, objp)
+xdr_result(xdrs, objp)
 	XDR *xdrs;
-	find_diff *objp;
+	result *objp;
 {
 
 	if (!xdr_u_int(xdrs, &objp->low))

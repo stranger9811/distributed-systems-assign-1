@@ -89,10 +89,37 @@ int findDay(CLIENT *clnt) {
 		printf("Sunday\n");
 }
 
+int find_number_of_specific_days(CLIENT *clnt, int days1,int days2, int specific_day) {
+	
+	int *output;
+	find_diff input;
+	input.lower = days1;
+	input.upper = days2 + 1;
+	input.specific_day = specific_day;
+
+	output = find_difference_between_dates_1(&input,clnt);
+	if (output==NULL) {
+		fprintf(stderr,"Trouble calling remote procedure\n");
+
+	}
+	
+	return *output; 
+
+}
+
 int findDifference(CLIENT *clnt) {
 	printf("Enter Date Range\n");
 	int m1,d1,y1,m2,d2,y2,specific_day;
 	scanf("%d/%d/%d %d/%d/%d %d",&d1,&m1,&y1,&d2,&m2,&y2,&specific_day);
+
+	long long no_of_days1 = day_elapsed(clnt,d1,m1,y1);
+	long long leap_years1 = day_to_be_added(clnt,d1,m1,y1);
+
+	long long no_of_days2 = day_elapsed(clnt,d2,m2,y2);
+	long long leap_years2 = day_to_be_added(clnt,d2,m2,y2);
+
+	printf("%d\n",find_number_of_specific_days(clnt,no_of_days1 + leap_years1,no_of_days2 + leap_years2,specific_day));
+
 }
 int main(int argc,char *argv[]) {
 	CLIENT *clnt;
@@ -108,6 +135,6 @@ int main(int argc,char *argv[]) {
 		clnt_pcreateerror(argv[1]);
 		exit(1);
 	}
-	findDay(clnt);
+	findDifference(clnt);
 	return 0;
 }

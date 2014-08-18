@@ -27,23 +27,10 @@ bool_t xdr_date();
 #endif /* Old Style C */
 
 
-struct result {
+struct find_diff {
 	u_int upper;
 	u_int lower;
-};
-typedef struct result result;
-#ifdef __cplusplus
-extern "C" bool_t xdr_result(XDR *, result*);
-#elif __STDC__
-extern  bool_t xdr_result(XDR *, result*);
-#else /* Old Style C */
-bool_t xdr_result();
-#endif /* Old Style C */
-
-
-struct find_diff {
-	u_int low;
-	u_int upp;
+	u_int specific_day;
 };
 typedef struct find_diff find_diff;
 #ifdef __cplusplus
@@ -52,6 +39,20 @@ extern "C" bool_t xdr_find_diff(XDR *, find_diff*);
 extern  bool_t xdr_find_diff(XDR *, find_diff*);
 #else /* Old Style C */
 bool_t xdr_find_diff();
+#endif /* Old Style C */
+
+
+struct result {
+	u_int low;
+	u_int upp;
+};
+typedef struct result result;
+#ifdef __cplusplus
+extern "C" bool_t xdr_result(XDR *, result*);
+#elif __STDC__
+extern  bool_t xdr_result(XDR *, result*);
+#else /* Old Style C */
+bool_t xdr_result();
 #endif /* Old Style C */
 
 

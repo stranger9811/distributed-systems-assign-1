@@ -81,6 +81,17 @@ find_difference_between_dates_1_svc(find_diff *argp,struct svc_req *rqstp)
 
 	static int  result;
 
+	int no_of_days1;
+	no_of_days1 = argp->lower/7;
+	if(argp->lower%7>=argp->specific_day) 
+		no_of_days1++;
+
+	int no_of_days2;
+	no_of_days2 = argp->upper/7;
+	if(argp->upper%7>=argp->specific_day) 
+		no_of_days2++;
+
+	result = no_of_days2 - no_of_days1;
 	/*
 	 * insert server code here
 	 */

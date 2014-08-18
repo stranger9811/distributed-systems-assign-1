@@ -5,11 +5,12 @@ struct date {
 	unsigned int year_upper;
 	unsigned int year_lower;
 };
-struct result {
+struct find_diff {
 	unsigned int upper;
 	unsigned int lower;
+	unsigned int specific_day;
 };
-struct find_diff {
+struct result {
 	unsigned int low;
 	unsigned int upp;
 };
