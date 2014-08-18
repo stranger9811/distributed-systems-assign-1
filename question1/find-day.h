@@ -41,6 +41,20 @@ bool_t xdr_result();
 #endif /* Old Style C */
 
 
+struct find_diff {
+	u_int low;
+	u_int upp;
+};
+typedef struct find_diff find_diff;
+#ifdef __cplusplus
+extern "C" bool_t xdr_find_diff(XDR *, find_diff*);
+#elif __STDC__
+extern  bool_t xdr_find_diff(XDR *, find_diff*);
+#else /* Old Style C */
+bool_t xdr_find_diff();
+#endif /* Old Style C */
+
+
 #define SIMP_PROG ((rpc_uint)0x39876543)
 #define SIMP_VERSION ((rpc_uint)1)
 
@@ -54,6 +68,9 @@ extern "C" int * days_elapsed_1_svc(date *, struct svc_req *);
 #define find_day ((rpc_uint)3)
 extern "C" int * find_day_1(date *, CLIENT *);
 extern "C" int * find_day_1_svc(date *, struct svc_req *);
+#define find_difference_between_dates ((rpc_uint)4)
+extern "C" int * find_difference_between_dates_1(find_diff *, CLIENT *);
+extern "C" int * find_difference_between_dates_1_svc(find_diff *, struct svc_req *);
 
 #elif __STDC__
 #define days_to_be_added ((rpc_uint)1)
@@ -65,6 +82,9 @@ extern  int * days_elapsed_1_svc(date *, struct svc_req *);
 #define find_day ((rpc_uint)3)
 extern  int * find_day_1(date *, CLIENT *);
 extern  int * find_day_1_svc(date *, struct svc_req *);
+#define find_difference_between_dates ((rpc_uint)4)
+extern  int * find_difference_between_dates_1(find_diff *, CLIENT *);
+extern  int * find_difference_between_dates_1_svc(find_diff *, struct svc_req *);
 
 #else /* Old Style C */
 #define days_to_be_added ((rpc_uint)1)
@@ -76,6 +96,9 @@ extern  int * days_elapsed_1_svc();
 #define find_day ((rpc_uint)3)
 extern  int * find_day_1();
 extern  int * find_day_1_svc();
+#define find_difference_between_dates ((rpc_uint)4)
+extern  int * find_difference_between_dates_1();
+extern  int * find_difference_between_dates_1_svc();
 #endif /* Old Style C */
 
 #endif /* !_FIND-DAY_H_RPCGEN */

@@ -46,3 +46,16 @@ find_day_1(argp, clnt)
 		return (NULL);
 	return (&clnt_res);
 }
+
+int *
+find_difference_between_dates_1(argp, clnt)
+	find_diff *argp;
+	CLIENT *clnt;
+{
+	static int clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call(clnt, find_difference_between_dates, xdr_find_diff, argp, xdr_int, &clnt_res, TIMEOUT) != RPC_SUCCESS)
+		return (NULL);
+	return (&clnt_res);
+}

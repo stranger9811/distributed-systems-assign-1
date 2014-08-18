@@ -71,3 +71,16 @@ xdr_result(xdrs, objp)
 		return (FALSE);
 	return (TRUE);
 }
+
+bool_t
+xdr_find_diff(xdrs, objp)
+	XDR *xdrs;
+	find_diff *objp;
+{
+
+	if (!xdr_u_int(xdrs, &objp->low))
+		return (FALSE);
+	if (!xdr_u_int(xdrs, &objp->upp))
+		return (FALSE);
+	return (TRUE);
+}

@@ -74,6 +74,7 @@ simp_prog_1(rqstp, transp)
 		date days_to_be_added_1_arg;
 		date days_elapsed_1_arg;
 		date find_day_1_arg;
+		find_diff find_difference_between_dates_1_arg;
 	} argument;
 	char *result;
 	bool_t (*xdr_argument)(), (*xdr_result)();
@@ -102,6 +103,12 @@ simp_prog_1(rqstp, transp)
 		xdr_argument = xdr_date;
 		xdr_result = xdr_int;
 		local = (char *(*)()) find_day_1_svc;
+		break;
+
+	case find_difference_between_dates:
+		xdr_argument = xdr_find_diff;
+		xdr_result = xdr_int;
+		local = (char *(*)()) find_difference_between_dates_1_svc;
 		break;
 
 	default:

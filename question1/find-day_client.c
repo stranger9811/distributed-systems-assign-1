@@ -9,52 +9,55 @@
 #include "find-day.h"
 
 
-int day_to_be_added( CLIENT *clnt, int day_of_month, int month,long long year) {
+long long day_to_be_added( CLIENT *clnt, int day_of_month, int month,long long year) {
 	date this_date;
-	int *result;
-
-	this_date.day = day_of_month;
-	this_date.month = month;
-	this_date.year_lower = year;
-
-	result = days_to_be_added_1(&this_date,clnt);
-	if (result==NULL) {
-		fprintf(stderr,"Trouble calling remote procedure\n");
-
-	}
-	return(*result);
-}
-
-int find_week_day( CLIENT *clnt, long long total_no_days) {
-	date this_date;
-	int *result;
-
-	this_date.day = total_no_days;
-	printf("day is %d\n",this_date.day);
-	result = find_day_1(&this_date,clnt);
-	if (result==NULL) {
-		fprintf(stderr,"Trouble calling remote procedure\n");
-
-	}
-	return(*result);
-}
-
-int day_elapsed(CLIENT *clnt, int day_of_month, int month,long long year) {
-	date this_date;
-	int *result;
+	int *output;
 
 	this_date.day = day_of_month;
 	this_date.month = month;
 	this_date.year_upper = year >> 32;
 	this_date.year_lower = year & 0x00000000FFFFFFFF;
-	
-
-	result = days_elapsed_1(&this_date,clnt);
-	if (result==NULL) {
+	output = days_to_be_added_1(&this_date,clnt);
+	if (output==NULL) {
 		fprintf(stderr,"Trouble calling remote procedure\n");
 
 	}
-	return(*result); 
+	
+	return *output; 
+}
+
+long long find_week_day( CLIENT *clnt, long long total_no_days) {
+	date this_date;
+	int *output;
+	this_date.year_upper = total_no_days >> 32;
+	this_date.year_lower = total_no_days & 0x00000000FFFFFFFF;
+	this_date.day = total_no_days;
+	output = find_day_1(&this_date,clnt);
+	if (output==NULL) {
+		fprintf(stderr,"Trouble calling remote procedure\n");
+
+	}
+	
+	return *output; 
+}
+
+long long day_elapsed(CLIENT *clnt, int day_of_month, int month,long long year) {
+	date this_date;
+	int *output;
+
+	this_date.day = day_of_month;
+	this_date.month = month;
+	this_date.year_upper = year >> 32;
+	this_date.year_lower = year & 0x00000000FFFFFFFF;
+
+
+	output = days_elapsed_1(&this_date,clnt);
+	if (output==NULL) {
+		fprintf(stderr,"Trouble calling remote procedure\n");
+
+	}
+	
+	return *output; 
 }
 
 int findDay(CLIENT *clnt) {
@@ -64,13 +67,8 @@ int findDay(CLIENT *clnt) {
 	printf("\nEnter date\n");
 	scanf("%d/%d/%lld",&day_of_month,&month,&year);
 
-
-
-	printf("\nday is %d month %d year %d\n",day_of_month,month,year);
 	long long no_of_days = day_elapsed(clnt,day_of_month,month,year);
 	long long leap_years = day_to_be_added(clnt,day_of_month,month,year);
-	printf(" days elapsed = %d \n",day_elapsed(clnt,day_of_month,month,year));
-	printf(" leap years = %d \n",day_to_be_added(clnt,day_of_month,month,year));
 
 	int day = find_week_day(clnt,no_of_days+leap_years);
 	
@@ -91,6 +89,11 @@ int findDay(CLIENT *clnt) {
 		printf("Sunday\n");
 }
 
+int findDifference(CLIENT *clnt) {
+	printf("Enter Date Range\n");
+	int m1,d1,y1,m2,d2,y2,specific_day;
+	scanf("%d/%d/%d %d/%d/%d %d",&d1,&m1,&y1,&d2,&m2,&y2,&specific_day);
+}
 int main(int argc,char *argv[]) {
 	CLIENT *clnt;
 	

@@ -73,3 +73,17 @@ int * find_day_1_svc(date *argp,struct svc_req *rqstp)
 
 	return(&result);
 }
+
+
+int *
+find_difference_between_dates_1_svc(find_diff *argp,struct svc_req *rqstp)
+{
+
+	static int  result;
+
+	/*
+	 * insert server code here
+	 */
+
+	return(&result);
+}
